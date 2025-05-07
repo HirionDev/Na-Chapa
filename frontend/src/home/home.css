@@ -1,0 +1,9 @@
+.dashboard-container {
+    padding: 20px;
+    text-align: center;
+}
+.welcome-message {
+    font-size: 2em;
+    color: #ff5722;
+    margin-top: 50px;
+}

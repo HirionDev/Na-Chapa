@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    <div class="sidebar">
+        <ul>
+            <li><a href="#" data-page="dashboard/dashboard.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#" data-page="counter/counter_counter.html"><i class="fas fa-shopping-cart"></i> Balcão</a>
+            </li>
+            <li><a href="#" data-page="status/status_status.html"><i class="fas fa-list"></i> Status dos Pedidos</a>
+            </li>
+            <li><a href="#" data-page="cardapio/cardapio.html"><i class="fas fa-book"></i> Cardápio</a></li>
+            <li><a href="#" data-page="configuracao/configuracao.html"><i class="fas fa-cog"></i> Configurações</a></li>
+            <li><a href="#" data-page="login/login.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+            <li><span id="whatsapp-status"><i class="fab fa-whatsapp"></i> WhatsApp: <span
+                        id="whatsapp-indicator">Desconectado</span></span></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <h1>Dashboard</h1>
+        <div class="dashboard-container">
+            <p class="welcome-message">Bem-vindo ao Na Chapa!</p>
+        </div>
+    </div>
+    <script src="home.js"></script>
+</body>
+
+</html>
