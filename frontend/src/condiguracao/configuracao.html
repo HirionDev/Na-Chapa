@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="configuracao.css">
+</head>
+<body>
+    <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    <div class="sidebar">
+        <ul>
+            <li><a href="#" data-page="dashboard/dashboard.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#" data-page="counter/counter_counter.html"><i class="fas fa-shopping-cart"></i> Balcão</a></li>
+            <li><a href="#" data-page="status/status_status.html"><i class="fas fa-list"></i> Status dos Pedidos</a></li>
+            <li><a href="#" data-page="cardapio/cardapio.html"><i class="fas fa-book"></i> Cardápio</a></li>
+            <li><a href="#" data-page="configuracao/configuracao.html"><i class="fas fa-cog"></i> Configurações</a></li>
+            <li><a href="#" data-page="login/login.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+            <li><span id="whatsapp-status"><i class="fab fa-whatsapp"></i> WhatsApp: <span id="whatsapp-indicator">Desconectado</span></span></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="settings-container">
+            <h1>Configurações</h1>
+            <div class="settings-tabs">
+                <button onclick="showTab('printer-settings')" class="active"><i class="fas fa-print"></i> Impressão</button>
+                <button onclick="showTab('user-management')"><i class="fas fa-users"></i> Usuários</button>
+                <button onclick="showTab('reports')"><i class="fas fa-chart-bar"></i> Relatórios</button>
+                <button onclick="showTab('whatsapp-integration')"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                <button onclick="showTab('pix-key-settings')"><i class="fas fa-key"></i> Chave Pix</button>
+                <button onclick="showTab('menu-image-generator')"><i class="fas fa-image"></i> Imagem do Cardápio</button>
+            </div>
+            <div id="printer-settings" class="settings-section active">
+                <h2>Configurações de Impressão</h2>
+                <div class="form-group">
+                    <label>Ativar Impressão Automática:</label>
+                    <label class="switch">
+                        <input type="checkbox" id="printer-toggle" onchange="togglePrinter()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="printer-name">Nome da Impressora:</label>
+                    <input type="text" id="printer-name" placeholder="Digite o nome da impressora">
+                    <button onclick="savePrinterName()">Salvar</button>
+                </div>
+            </div>
+            <div id="user-management" class="settings-section">
+                <h2>Gerenciamento de Usuários</h2>
+                <button onclick="openAddUserModal()">Adicionar Novo Usuário</button>
+                <div id="users-list"></div>
+            </div>
+            <div id="reports" class="settings-section">
+                <h2>Relatórios</h2>
+                <div class="form-group">
+                    <label for="start-date">Data Inicial:</label>
+                    <input type="date" id="start-date">
+                </div>
+                <div class="form-group">
+                    <label for="end-date">Data Final:</label>
+                    <input type="date" id="end-date">
+                </div>
+                <div class="form-group">
+                    <label for="report-format">Formato:</label>
+                    <select id="report-format">
+                        <option value="pdf">PDF</option>
+                        <option value="excel">Excel</option>
+                    </select>
+                </div>
+                <button onclick="generateReport()">Gerar Relatório</button>
+            </div>
+            <div id="whatsapp-integration" class="settings-section">
+                <h2>Integração com WhatsApp</h2>
+                <button onclick="openWhatsAppModal()">Configurar WhatsApp</button>
+            </div>
+            <div id="pix-key-settings" class="settings-section">
+                <h2>Configurar Chave Pix</h2>
+                <div class="form-group">
+                    <label for="pix-key">Chave Pix:</label>
+                    <input type="text" id="pix-key" placeholder="Digite a chave Pix">
+                    <button onclick="savePixKey()">Salvar</button>
+                </div>
+            </div>
+            <div id="menu-image-generator" class="settings-section">
+                <h2>Gerar Imagem do Cardápio</h2>
+                <button onclick="generateMenuImage()">Gerar Imagem</button>
+                <img id="menu-image-preview" src="" alt="Pré-visualização do Cardápio" style="display: none;">
+            </div>
+        </div>
+    </div>
+    <div id="add-user-modal" class="modal">
+        <div class="modal-content">
+            <h3>Adicionar Novo Usuário</h3>
+            <div class="form-group">
+                <label for="add-user-name">Nome do Usuário:</label>
+                <input type="text" id="add-user-name" placeholder="Nome do Usuário">
+            </div>
+            <div class="form-group">
+                <label for="add-user-password">Senha:</label>
+                <input type="password" id="add-user-password" placeholder="Senha">
+            </div>
+            <div class="form-group">
+                <label for="add-user-role">Função:</label>
+                <select id="add-user-role">
+                    <option value="admin">Admin</option>
+                    <option value="user">Usuário</option>
+                </select>
+            </div>
+            <div class="buttons">
+                <button class="save" onclick="saveUser()">Salvar</button>
+                <button class="cancel" onclick="closeAddUserModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <div id="edit-user-modal" class="modal">
+        <div class="modal-content">
+            <h3>Editar Usuário</h3>
+            <input type="hidden" id="edit-user-id">
+            <div class="form-group">
+                <label for="edit-user-name">Nome do Usuário:</label>
+                <input type="text" id="edit-user-name" placeholder="Nome do Usuário" disabled>
+            </div>
+            <div class="form-group">
+                <label for="edit-user-password">Nova Senha:</label>
+                <input type="password" id="edit-user-password" placeholder="Nova Senha">
+            </div>
+            <div class="form-group">
+                <label for="edit-user-role">Função:</label>
+                <select id="edit-user-role">
+                    <option value="admin">Admin</option>
+                    <option value="user">Usuário</option>
+                </select>
+            </div>
+            <div class="buttons">
+                <button class="save" onclick="saveEditedUser()">Salvar</button>
+                <button class="cancel" onclick="closeEditUserModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <div id="whatsapp-modal" class="modal">
+        <div class="modal-content">
+            <h3>Configurar WhatsApp</h3>
+            <p id="whatsapp-message">Aguardando QR code...</p>
+            <div id="whatsapp-loading" class="loading">Carregando...</div>
+            <canvas id="qr-code-canvas" style="display: none;"></canvas>
+            <div id="qr-code" style="display: none;"></div>
+            <div class="buttons">
+                <button class="cancel" onclick="closeWhatsAppModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+    <script src="configuracao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+</body>
+</html>
