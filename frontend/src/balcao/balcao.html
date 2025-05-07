@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balcão</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="balcao.css">
+</head>
+
+<body>
+    <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    <div class="sidebar">
+        <ul>
+            <li><a href="#" data-page="dashboard/dashboard.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#" data-page="counter/counter_counter.html"><i class="fas fa-shopping-cart"></i> Balcão</a></li>
+            <li><a href="#" data-page="status/status_status.html"><i class="fas fa-list"></i> Status dos Pedidos</a></li>
+            <li><a href="#" data-page="cardapio/cardapio.html"><i class="fas fa-book"></i> Cardápio</a></li>
+            <li><a href="#" data-page="configuracao/configuracao.html"><i class="fas fa-cog"></i> Configurações</a></li>
+            <li><a href="#" data-page="login/login.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+            <li><span id="whatsapp-status"><i class="fab fa-whatsapp"></i> WhatsApp: <span id="whatsapp-indicator">Desconectado</span></span></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <h1>Balcão</h1>
+        <div class="counter-container">
+            <div class="items-section">
+                <h2>Itens do Cardápio</h2>
+                <div id="menu-items"></div>
+            </div>
+            <div class="order-section">
+                <h2>Seu Pedido</h2>
+                <div class="order-items-container" id="order-items"></div>
+                <p class="total">Total: R$<span id="order-total">0.00</span></p>
+                <input type="text" id="customer-name" placeholder="Nome do Cliente">
+                <input type="text" id="customer-phone" placeholder="Telefone do Cliente">
+                <select id="service-type">
+                    <option value="Local (Mesa 1)">Local (Mesa 1)</option>
+                    <option value="Local (Mesa 2)">Local (Mesa 2)</option>
+                    <option value="Local (Mesa 3)">Local (Mesa 3)</option>
+                    <option value="Local (Mesa 4)">Local (Mesa 4)</option>
+                    <option value="Local (Mesa 5)">Local (Mesa 5)</option>
+                    <option value="Retirada">Retirada</option>
+                </select>
+                <select id="payment-method">
+                    <option value="pix">Pix</option>
+                    <option value="cartão">Cartão</option>
+                    <option value="dinheiro">Dinheiro</option>
+                </select>
+                <button id="confirm-payment" class="confirm-payment" onclick="togglePayment()"><i class="fas fa-check"></i>Confirmar Pagamento</button>
+                <button id="submit-order" class="submit-order" onclick="submitOrder()" disabled>Finalizar Pedido</button>
+            </div>
+        </div>
+    </div>
+    <div id="item-modal" class="modal">
+        <div class="modal-content">
+            <h3>Adicionar Item ao Pedido</h3>
+            <p><strong id="modal-item-name"></strong></p>
+            <input type="number" id="modal-item-quantity" value="1" min="1" placeholder="Quantidade">
+            <textarea id="modal-item-observations" placeholder="Observações (opcional)"></textarea>
+            <div id="modal-item-optionals">
+                <h4>Opcionais</h4>
+                <div id="optionals-list"></div>
+            </div>
+            <button class="add" onclick="addItemToOrder()">Adicionar ao Pedido</button>
+            <button class="cancel" onclick="closeItemModal()">Cancelar</button>
+        </div>
+    </div>
+    <div id="print-preview-modal" class="modal">
+        <div class="modal-content">
+            <h3>Pré-visualização de Impressão</h3>
+            <pre id="print-preview-content"></pre>
+            <div class="buttons">
+                <button class="cancel" onclick="closePrintPreviewModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+    <script src="balcao.js"></script>
+</body>
+
+</html>
